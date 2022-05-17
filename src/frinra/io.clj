@@ -8,7 +8,6 @@
 (def fn-concentration "resources/concentration.csv")
 
 
-
 (defn load-csv [fname] (with-open [reader (io/reader fname)]
                          (doall
                            (csv/read-csv reader))))

@@ -1,4 +1,5 @@
-(ns frinra.dose)
+(ns frinra.dose
+  (:require [frinra.io :as frio] [frinra.concentration :as conc]))
 
 (def NUMBER-OF-DAYS 7)
 (def NUMBER-PER-TABLET 4)
@@ -51,3 +52,13 @@
                           (map (fn [quarters] (/ quarters NUMBER-PER-TABLET))
                                (flatten (dispatch-outstanding quarters-for-a-week outstanding inverse))))))
 
+
+(defn compute-week-doses []
+  (let [data (conc/filter-doses (frio/load-csv frio/fn-doses))
+        length 6]
+    (loop [head (first data)
+           tail (rest data)
+           result []]
+      (if (> (count tail) length)
+        (recur (first tail) (rest tail) (conj result (reduce + (conj (take length tail) head))))
+        (conj result (reduce + (conj (take length tail) head)))))))
