@@ -1,11 +1,15 @@
-(ns frinra.core)
+(ns frinra.core
+  (:require
+            [frinra.concentration :as conc]))
 
 (defn foo
   "I don't do a whole lot."
   [x]
   (println x "Hello, World!"))
+(defn filter-doses [values]
+  (map (fn [pair] (pair 1)) values))
 
-(defn prod-2 [] 2)
 (defn -main
   []
-  (foo "bla"))
+  (println (filter-doses (conc/concentrations conc/doses conc/dates)))
+                        )

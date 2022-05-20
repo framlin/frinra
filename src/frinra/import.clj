@@ -1,6 +1,5 @@
 (ns frinra.import
-  (:require [frinra.io :as frio] [clojure.string :as str]))
-
+  (:require [frinra.io :as frio]))
 
 (defn comma->dot
   [num-string]
@@ -15,12 +14,6 @@
   [data-line]
   (let [date 0, dose 2]
     [(data-line date), (comma->dot (data-line dose))] ))
-
-(defn import-data-old [in-fname out-fname filter]
-  (let [csv-data (frio/load-csv in-fname)]
-    (with-open [writer (io/writer out-fname)]
-      (csv/write-csv writer (map filter (rest csv-data))))))
-
 
 (defn import-data [in-fname out-fname filter]
   (let [csv-data (frio/load-csv in-fname)]
